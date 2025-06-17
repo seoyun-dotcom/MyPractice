@@ -1,3 +1,6 @@
+using System;
+
+
 namespace PracticeTest
 {
     public class Player
@@ -10,6 +13,7 @@ namespace PracticeTest
             this.name = name;
             this.level = level;
             Console.WriteLine($"캐릭터: {name}, 레벨: {level} 생성완료");
+           
         }
     }
 
