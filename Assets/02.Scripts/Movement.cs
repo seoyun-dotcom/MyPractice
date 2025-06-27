@@ -2,25 +2,26 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public float moveSpeed = 10f;
+    public float moveSpeed = 5f;
  
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))// 앞으로 가는 기능
-        {
-            transform.position += Vector3.forward * moveSpeed * Time.deltaTime;
-        }
-        if (Input.GetKeyDown(KeyCode.S))// 뒤로 가는 기능
-        {
-            transform.position += Vector3.back * moveSpeed * Time.deltaTime;
-        }
-        if(Input.GetKeyDown(KeyCode.D))// 오른쪽으로 가는 기능
-        {
-            transform.position += Vector3.right * moveSpeed * Time.deltaTime;
-        }
-        if (Input.GetKeyDown(KeyCode.A))// 왼쪽으로 가는 기능
-        {
-            transform.position += Vector3.left * moveSpeed * Time.deltaTime;
-        }
+        // 부드럽게 증감하는 값
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+
+        // 딱 떨어지는 값
+        // float h = Input.GetAxisRaw("Horizontal");
+        // float v = Input.GetAxisRaw("Vertical");
+
+        Vector3 dir = new Vector3(h, 0, v);
+
+        Vector3 normalDir = dir.normalized;
+
+        //dir: 방향을 담고 있는 벡터
+        //transform.position += ...: - 이동하는 행위
+        transform.position += normalDir * moveSpeed * Time.deltaTime;
+
+        transform.LookAt(transform.position + normalDir);
     }
 }
