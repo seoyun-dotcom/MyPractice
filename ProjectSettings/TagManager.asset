@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 3
   tags:
   - Ground
+  - GameOver
+  - Score50
+  - Score30
+  - Score10
   layers:
   - Default
   - TransparentFX
