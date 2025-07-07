@@ -9,6 +9,8 @@ TagManager:
   - Score50
   - Score30
   - Score10
+  - Fruit
+  - Pipe
   layers:
   - Default
   - TransparentFX
