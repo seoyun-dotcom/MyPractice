@@ -5,6 +5,7 @@ namespace Cat
 {
     public class VideoManager : MonoBehaviour
     {
+        //Video Raw Image
         public GameObject videoPanel;
 
         public VideoPlayer vPlayer;
@@ -24,5 +25,6 @@ namespace Cat
             vPlayer.clip = endingClip;
             vPlayer.Play();
         }
+
     }
 }

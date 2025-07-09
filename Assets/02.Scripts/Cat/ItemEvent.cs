@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEngine.Tilemaps.Tile;
 
 public class ItemEvent : MonoBehaviour
 {
@@ -10,13 +9,20 @@ public class ItemEvent : MonoBehaviour
     public GameObject fruit;
     public GameObject particle;
 
-    public float moveSpeed = 7f;
+    public float moveSpeed = 4f;
     public float returnPosX = 15f;
     public float randomPosY;
 
-    void Start()
+    private Vector3 initPos;
+
+    void Awake()
     {
-        SetRandomSetting(transform.position.x);
+        initPos = transform.localPosition; // 처음 위치 저장
+    }
+
+    void OnEnable()
+    {
+        SetRandomSetting(initPos.x); // 다시 활성화될 때 위치 초기화
     }
 
     void Update()

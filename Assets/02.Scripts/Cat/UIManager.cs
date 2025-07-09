@@ -1,13 +1,13 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.UI;
 
 namespace Cat
 {
     public class UIManager : MonoBehaviour
     {
-        public SoundManager soundManager;
+        public SoundManager soundManager;// 인스턴스 참조
+        public VideoManager videoManager;// 인스턴스 참조
 
         public GameObject playObj;
         public GameObject introUI;
@@ -17,6 +17,7 @@ namespace Cat
         public TextMeshProUGUI nameTextUI;
 
         public Button startButton;
+        public Button restartButton;
 
         void Awake()
         {
@@ -28,7 +29,7 @@ namespace Cat
         void Start()
         {
             startButton.onClick.AddListener(OnStartButton);
-
+            restartButton.onClick.AddListener(OnRestartButton);
         }
 
         public void OnStartButton()
@@ -46,12 +47,19 @@ namespace Cat
                 soundManager.SetBGMSound("Play");
 
                 GameManager.isPlay = true; //true가 되면 타이머 시작
-                Debug.Log($"{nameTextUI.text} 입력");
 
                 playObj.SetActive(true);
                 playUI.SetActive(true);
                 introUI.SetActive(false);
             }
+        }
+
+        public void OnRestartButton()
+        {
+            GameManager.ResetPlayUI();
+            playUI.SetActive(true);
+            playObj.SetActive(true);
+            videoManager.videoPanel.SetActive(false);
         }
     }
 }

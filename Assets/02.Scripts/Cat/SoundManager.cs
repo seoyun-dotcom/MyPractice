@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Audio;
 
 //다른 클래스들과 구분하려고 이름공간 설정
 namespace Cat
@@ -40,7 +39,6 @@ namespace Cat
         {
             audioSource.PlayOneShot(colliderClip);
             audioSource.volume = 1.0f;
-            Debug.Log($"충돌");
         }
     }
 }
