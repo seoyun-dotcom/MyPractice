@@ -6,7 +6,7 @@ public class Coin : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log($"현재까지 {Movement.coinCount}개의 코인 획득!!");
+            Debug.Log($"현재까지 {Movement.coinCount + 1}개의 코인 획득!!");
 
             Movement.coinCount++;
 
