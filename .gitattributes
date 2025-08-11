@@ -1,0 +1,6 @@
+*.shader linguist-vendored
+*.cginc linguist-vendored
+*.hlsl linguist-vendored
+*.html linguist-vendored
+*.m linguist-vendored
+*.nb linguist-vendored
