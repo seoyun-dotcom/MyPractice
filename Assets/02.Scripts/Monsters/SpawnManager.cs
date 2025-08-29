@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    //이미 정해진 개수가 있는 경우
+    //배열: 이미 정해진 개수가 있는 경우 (런타임 중에 수정 불가)
     [SerializeField] private GameObject[] monsters;//몬스터종류가 이미 정해진 상태
     [SerializeField] private GameObject[] items;
 
@@ -20,9 +20,13 @@ public class SpawnManager : MonoBehaviour
             var randomY = Random.Range(-3, 5);//(-3~4)
             var CreatePos = new Vector3 (randomX, randomY, 0);
 
-            Instantiate(monsters[randomIndex], CreatePos, Quaternion.identity);//원점에 생성 -> CreatePos에 생성
+            GameObject monster= Instantiate(monsters[randomIndex], CreatePos, Quaternion.identity);//원점에 생성 -> CreatePos에 생성
 
-            //몬스터를 생성하는 기능
+            // 방향을 랜덤으로 설정 (예: -1 또는 1)
+            int ranDir = Random.Range(0, 2) == 0 ? -1 : 1;
+            monster.GetComponent<Monster>().Dir = ranDir;
+            // 방향에 따라 스프라이트 뒤집기
+            monster.GetComponent<Monster>().SetFlip(ranDir);
         }
     }
     public void DropCoin(Vector3 dropPos)
@@ -35,6 +39,9 @@ public class SpawnManager : MonoBehaviour
         //위치속도(AddForce)
         itemRb.AddForceX(Random.Range(-2,2),ForceMode2D.Impulse);//양옆으로 드랍되게 x축도 건드려주기
         itemRb.AddForceY(3f,ForceMode2D.Impulse);//아이템 머리위로 순간적으로 드랍되게 하기
+
+        //한줄로 요약
+        //itemRb.AddForce(new Vector2(Random.Range(-2, 2), 3f), ForceMode2D.Impulse);
 
         float ranPower = Random.Range(-1.5f, 1.5f);
         //회전속도(AddTorque)

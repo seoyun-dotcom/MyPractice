@@ -14,19 +14,33 @@ public abstract class Monster : MonoBehaviour
     protected float moveSpeed = 5f;
     //화면끝까지가면 더이상안가고 방향을 바꾸게 하기위해
     private int dir = 1;
+    public int Dir
+    {
+        get { return dir; }
+        set
+        {
+            //방향은 반드시 왼쪽(-1) 또는 오른쪽(1)만 허용하겠다는 명확한 규칙
+            if (value == 1 || value == -1)
+                dir = value;
+        }
+
+    }
+
 
     //Initialize(초기화)의 줄임말
     //추상화 abstract
     public abstract void Init();
 
+    private void Awake()
+    {
+        sRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+    }
+
     private void Start()
     {
         spawner = FindFirstObjectByType<SpawnManager>();
-
-        sRenderer = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
-
-        Init();
+        Init(); // 스탯 초기화
     }
     private void Update()
     {
@@ -50,23 +64,28 @@ public abstract class Monster : MonoBehaviour
 
         //캐릭터가 화면밖으로 나가지 못하게
         if (transform.position.x > 8f)
-        {
             dir = -1;
-            //다시 돌아갈때 고개를?돌리도록 만들기 문워크안하도록!
-            sRenderer.flipX = true;
-        }
         else if (transform.position.x < -8f)
-        {
             dir = 1;
-            sRenderer.flipX = false;
-        }
+
+        //다시 돌아갈때 고개를?돌리도록 만들기 문워크안하도록!
+        SetFlip(dir);
     }
+
+    public void SetFlip(int dir)
+    {
+        if (dir > 0)
+            sRenderer.flipX = false;
+        else
+            sRenderer.flipX = true;
+    }
+
     /// <summary>
     /// 몬스터가 공격받았을때 로직
     /// </summary>
     /// <param name="damage"></param>
     /// <returns></returns>
-    IEnumerator Hit(float damage)
+    public IEnumerator Hit(float damage)
     {
         if(isHit)
             yield break;
